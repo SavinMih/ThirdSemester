@@ -2,6 +2,7 @@ package com.sawin.labs.controller;
 
 import com.sawin.labs.model.Request;
 import com.sawin.labs.model.Response;
+import com.sawin.labs.service.ModifyRequestService;
 import com.sawin.labs.service.MyModifyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MyController {
     private final MyModifyService myModifyService;
+    private final ModifyRequestService modifyRequestService;
 
     @Autowired
-    public MyController(@Qualifier("ModifyErrorMessage") MyModifyService myModifyService) {
+    public MyController(@Qualifier("ModifySystemTime") MyModifyService myModifyService, ModifyRequestService modifyRequestService) {
         this.myModifyService = myModifyService;
+        this.modifyRequestService = modifyRequestService;
     }
 
     @PostMapping(value = "/feedback")
     public ResponseEntity<Response> feedback(@RequestBody Request request) {
 
-        log.info("Входящий запрос: "+String.valueOf(request));
+        log.warn("Входящий запрос: "+String.valueOf(request));
 
         Response response = Response.builder()
                 .uid(request.getUid())
@@ -37,7 +40,7 @@ public class MyController {
                 .build();
 
         Response responseModified = myModifyService.modify(response);
-        log.info("Ответ: "+String.valueOf(responseModified));
+        log.warn("Ответ: "+String.valueOf(responseModified));
 
         return new ResponseEntity<>(responseModified, HttpStatus.OK);
     }
