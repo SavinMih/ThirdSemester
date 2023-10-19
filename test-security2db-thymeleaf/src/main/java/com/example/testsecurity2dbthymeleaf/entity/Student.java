@@ -1,17 +1,17 @@
-package com.example.testthymeleafwebapp.entity;
+package com.example.testsecurity2dbthymeleaf.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@Setter
 @Getter
-@Entity
-@ToString
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@Table(name="STUDENTS")
+@Entity
+@Table(name = "STUDENTS")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +25,4 @@ public class Student {
     private String faculty;
     @Column(name = "age")
     private int age;
-    public Student() {}
-
-    public Student(String name, String surname, String faculty, int age) {
-        this.name = name;
-        this.surname = surname;
-        this.faculty = faculty;
-        this.age = age;
-    }
 }

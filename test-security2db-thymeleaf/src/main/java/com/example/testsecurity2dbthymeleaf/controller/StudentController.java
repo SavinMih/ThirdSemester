@@ -1,7 +1,7 @@
-package com.example.testthymeleafwebapp.controller;
+package com.example.testsecurity2dbthymeleaf.controller;
 
-import com.example.testthymeleafwebapp.dao.StudentRepository;
-import com.example.testthymeleafwebapp.entity.Student;
+import com.example.testsecurity2dbthymeleaf.entity.Student;
+import com.example.testsecurity2dbthymeleaf.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +19,14 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
 
-    @GetMapping({ "/list", "/" })
+    @GetMapping("/list")
     public ModelAndView getAllStudents() {
+        log.info("/list -> connection");
         ModelAndView mav = new ModelAndView("list-students");
         mav.addObject("students", studentRepository.findAll());
         return mav;
     }
+
     @GetMapping("/addStudentForm")
     public ModelAndView addStudentForm() {
         ModelAndView mav = new ModelAndView("add-student-form");
